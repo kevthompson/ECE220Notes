@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct node node;
+
+struct node{
+    int data;
+    struct node* left;
+    struct node* right;
+};
+
+node *newnode(int new_data){
+  struct node * new_node = malloc(sizeof(node));
+  new_node->data = new_data;
+  new_node->left = new_node->right = NULL;
+  return new_node;
+}
+
+void insert(node **root, int new_data){
+  if(*root == NULL) (*root)->data = new_data;
+  else{
+    if((*root)->data > new_data) insert(&((*root)->left, new_data));
+    else if((*root)-> data < new_data) insert(&((*root)->right, new_data));
+  }
+}
+
+int height(node *root){
+  if(*root == NULL) return -1;
+  return 1 + height((*root)->left>(*root)->right?(*root)->left:(*root)->right);
+}
+
+int main(){
+  struct node ** tree;
+  insert(tree, 1);
+  insert(tree, 2);
+  insert(tree, 3);
+  printf("%d", height(*tree));
+  return 0;
+}
